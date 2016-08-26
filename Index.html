@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Walk through Sounds</title>
+    <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript" src="/Ambi/node_modules/web-audio-ambisonic/web-audio-ambisonic.umd.js"></script>
+</head>
+
+<body>
+    <div id='main-column'>
+
+    <h1>WebAudio Ambisonic - HOA Player Compass commanded </h1> <hr>
+
+    <!-- Load html and js elements common to all examples -->
+    <div id="common.html"></div><br/>
+    <script> $("#common").load("common.html"); </script>
+
+    <!-- Load js file related to current example -->
+    <script src="compassplayer.js"></script>
+    
+    <h2>Orientation de l'appareil</h2>
+	
+		<table>
+			<tr>
+				<td>Orientation : </td>
+				<td id="alpha"></td>
+			</tr>
+			<tr>
+				<td>Inclinaison : </td>
+				<td id="beta"></td>
+			</tr>
+			<tr>
+				<td>Rotation : </td>
+				<td id="gamma"></td>
+			</tr>
+		</table>
+
+    </div>
+</body>
+
+</html>
