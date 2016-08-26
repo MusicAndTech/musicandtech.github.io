@@ -49,51 +49,48 @@
 		
 	
 	
-    <h2>Orientation </h2>
-		<table>
-			<tr>
-				<td>Azymuth :</td>
-				<td>Elevation :</td>
-			</tr>
-			<tr>
-				<td id="alpha"></td>				
-				<td id="beta"></td>
-			</tr>
-		</table>
-
-
-
-<table> 
+<h2>Orientation </h2>
+<table>
 <tr>
-	<td> Myposition </td>
-	<td id ="posXY"></td>
-	<td> Center </td>
-	<td id="centerCoord"></td>
+	<td></td>
+	<th>Azymuth :</th>
+	<th>Elevation :</th>
 </tr>
 <tr>
 	<td></td>
-	<td> Source 1 </td>
-	<td> Source 2 </td>	
+	<td id="alpha"></td>				
+	<td id="beta"></td>
 </tr>
 <tr>
-		<td> Distance </td>
+	<th> Myposition </th>
+	<td id ="posXY"></td>
+</tr>
+<tr>
+	<td></td>
+	<th> Source 1 </th>
+	<th> Source 2 </th>	
+</tr>
+<tr>
+		<th> Distance </th>
 	<td id="s1D"></td>
 	<td id="s2D"></td>	
 </tr>
 <tr>
-	<td> Gain </td>
+	<th> Gain </th>
 	<td id="s1G"></td>
 	<td id="s2G"></td>
 </tr>
 <tr>
-		<td> Rotator Deg </td>
+		<th> Rotator Deg </th>
 	<td id="yaw1"></td>
 	<td id="yaw2"></td>	
 </tr>
 </table>
 
-<button onclick="setCenterLocation()">Set Canvas Center coordinates</button>
+<p>>
+<button onclick="setCenter()">Go to Origin</button>
 <input type="button" onclick="stopWatch();" value="Stop"/>		
+</p>
 
 <div id="container">
     <!-- <img class='img' src="Picture1.png" alt="" /> -->
@@ -126,6 +123,7 @@ var source1Y = document.getElementById("yaw1");
 var source2Y = document.getElementById("yaw2");
 
 // Add mouse click event listener to canvas
+ 
 var volumeSlider = document.getElementById('volume-slider');
 volumeSlider.addEventListener('input', function(input) {
 masterGain.gain.value = volumeSlider.value;
@@ -168,11 +166,11 @@ var kw = document.getElementById("warning");
 var ks1 = document.getElementById("s1data");
 
 
-var currentPosition = [0, 0];
+//var currentPosition = [0, 0];
 var centerPosition = [0, 0];
-var currentPosYX = [0, 0];
+//var currentPosYX = [0, 0];
 var currentPosXY = [0, 0];
-var coords = {lat: "", lon: ""};
+//var coords = {lat: "", lon: ""};
 	
 ////////////////////////////
 // SET-UP GUI AND USER INPUT
@@ -180,7 +178,7 @@ var canvas = document.getElementById('Canvas');
 var canvas_context = canvas.getContext("2d");
 canvas_context.transform(1, 0, 0, -1, 0, canvas.height);
 
-var Xposcentre = 0 
+var Xposcentre = 0 ;
 var Yposcentre = 0 ;
 
 // Map sprite
@@ -188,7 +186,6 @@ var mapSprite = new Image();
 // Create a basic class which will be used to create a marker
 var Marker = function () {
     this.Sprite = new Image();
-    // this.Sprite.src = "https://dl.dropboxusercontent.com/u/6300538/WebAmbi/cursor.png"
     this.Sprite.src = "images/cursor.png";
     this.Width = 30;
     this.Height = 30;
@@ -207,14 +204,49 @@ var MarkerSource = function (sourcexy,sizeRatio) {
     this.Width = 60 *sizeRatio;
     this.Height = 59*sizeRatio;
     // marker 
-    this.XPos = Xposcentre+(sourcexy[0]*PPM);
-    this.YPos = Yposcentre+(sourcexy[1]*PPM);
+    this.XPos = Xposcentre+(sourcexy[0])*PPM;
+    this.YPos = Yposcentre+(sourcexy[1])*PPM;
 }
 var markerSource1 = new MarkerSource(source1x,1.5);
 var markerSource2 = new MarkerSource(source2x,2);
 var m = document.getElementById("sourcePos");
 
 
+//mouse action on canvas
+canvas.addEventListener("mousedown", function(mouse) {
+	mouseDown = true;
+    mouseAction(mouse);
+}, false);
+
+canvas.addEventListener("mousemove", function(mouse) {
+    if (mouseDown) mouseAction(mouse);
+}, false);
+
+canvas.addEventListener("mouseup", function(mouse) {
+    mouseDown = false;
+}, false);
+
+// When the user clicks their mouse on our canvas run this code
+function mouseAction(mouse) {
+    // Get current mouse coords
+    var rect = canvas.getBoundingClientRect();
+    var mouseXPos = (mouse.clientX - rect.left);
+    var mouseYPos = (mouse.clientY - rect.top);
+
+    // Move the marker when placed to a better location
+    marker.XPos = mouseXPos - (marker.Width/2);
+    marker.YPos = canvas.height - mouseYPos - (marker.Height/2);
+        
+    console.log(mouseXPos, mouseYPos);
+    //change reference
+    currentPosXY = [ (mouseXPos-Xposcentre)/PPM , (Yposcentre - mouseYPos)/PPM] ;
+
+
+    // Update webaudio
+    updateAudio(currentPosXY);
+
+
+}
 
 function draw() {
     requestAnimationFrame(draw);
@@ -234,9 +266,14 @@ function draw() {
 };
 
 draw();	
+
+function setCenter() {
+	currentPosXY = [0,0] ;
+	updateAudio(currentPosXY);
+}
 	
 // define center of playground by clicking on button 
-function setCenterLocation() {
+/*function setCenterLocation() {
     navigator.geolocation.getCurrentPosition(getPosition);
     } 
 
@@ -256,28 +293,31 @@ function getPosition(position) {
 	kw.innerHTML= "";
          }
 
+
 // current GPS position 
 
 var options = {enableHighAccuracy: true,timeout: 5000,maximumAge: 0,desiredAccuracy: 0, frequency: 100};
+
 function f() {
     // Update every 100 ms seconds
     watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
     }
+*/
 
 // Enable the ambisony depending on the zone 
 
 
 // onSuccess Geolocation
-function onSuccess(position) {
+function updateAudio(position) {
 	
-	currentPosition= [position.coords.latitude, position.coords.longitude] ;
-	currentPosYX = calcPosition(currentPosition, centerPosition);
-	currentPosXY = currentPosYX.swap() ;	
+	//currentPosition= [position.coords.latitude, position.coords.longitude] ;
+	//currentPosYX = calcPosition(currentPosition, centerPosition);
+	//currentPosXY = currentPosYX.swap() ;	
 	positionXY.innerHTML = currentPosXY;
 
     // Move the marker to current location
-    marker.XPos = Xposcentre+ Math.round(currentPosXY[0])*PPM;
-	marker.YPos = Yposcentre+ Math.round(currentPosXY[1])*PPM;
+    //marker.XPos = Xposcentre+ Math.round(currentPosXY[0])*PPM;
+	//marker.YPos = Yposcentre+ Math.round(currentPosXY[1])*PPM;
 
 	// calcul distance current position- bord du coverage source
 	s1pD = calcDistanceReceiverBordSource(currentPosXY[0],currentPosXY[1],source1x[0],source1x[1],r_source);
@@ -316,10 +356,7 @@ function onSuccess(position) {
 			mono2.connect(encoder2.in);
 			source2_ambisonics = false;}	
 		}	
-//affiche les données	
-	k.innerHTML= "current location: " + currentPosition +"   center location: " + centerPosition +"    current position for canvas: " + currentPosXY;
-    ks1.innerHTML= "bord1: " + s1pD[0] + "/" + s1pD[1] + "  bord2: " + s1pD[2] + "/" + s1pD[3] + " distance Source 1 border: " + s1pD[4];		
-	
+
 	}	
 
 	
