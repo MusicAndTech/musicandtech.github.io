@@ -11,12 +11,12 @@ context.onstatechange = function() {
     if (context.state === "suspended") { context.resume(); }
 }
 
-var sound_1 = "sounds/paper.wav";
-var sound_2 = "sounds/attacks.wav";
+var sound_1 = "sounds/animal/Birds_and_Moves_ACN_SN3D.wav";
+var sound_2 = "sounds/animal/Bird_ACN_SN3D.wav";
 //var sound_3 = "sounds/attacks.wav";
 
-var mono_1 = "sounds/clicks_mono.wav";
-var mono_2 = "sounds/attacks_mono.wav";
+var mono_1 = "sounds/animal/Dolphins.mp3"
+var mono_2 = "sounds/animal/Lion roar animals103.wav"
 //var mono_3 = "sounds/attacks_mono.wav"
 
 var irUrl_0 = "node_modules/web-audio-ambisonic/examples/IRs/HOA4_filters_virtual.wav";
