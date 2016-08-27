@@ -11,7 +11,7 @@ context.onstatechange = function() {
     if (context.state === "suspended") { context.resume(); }
 }
 
-var sound_1 = "sounds/animal/Birds_and_Moves_ACN_SN3D.wav";
+var sound_1 = "sounds/animal/attacks.wav";Birds_and_Moves_ACN_SN3D.wav";
 var sound_2 = "sounds/animal/Bird_ACN_SN3D.wav";
 //var sound_3 = "sounds/attacks.wav";
 
@@ -151,7 +151,7 @@ $(document).ready(function() {
         sound = context.createBufferSource();
         mono = context.createBufferSource();
         // ambisonic source 1 buffer       	
-        sound.buffer = soundBuffer;
+        sound.buffer = soundBuffer ;
         //sound.connect(limiter.in);
        	//mono source 1 buffer 
         mono.buffer = monoBuffer;
