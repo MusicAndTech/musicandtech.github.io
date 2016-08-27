@@ -12,7 +12,7 @@ context.onstatechange = function() {
 }
 
 var sound_1 = "sounds/cardinals.wav";
-var sound_2 = "sounds/animal/attacks.wav";
+var sound_2 = "sounds/attacks.wav";
 //var sound_3 = "sounds/attacks.wav";
 
 var mono_1 = "sounds/animal/Dolphins.mp3"
