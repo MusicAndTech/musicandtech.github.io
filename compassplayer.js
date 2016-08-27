@@ -15,8 +15,8 @@ var sound_1 = "sounds/paper.wav";
 var sound_2 = "sounds/attacks.wav";
 //var sound_3 = "sounds/attacks.wav";
 
-var mono_1 = "sounds/animal/clicks_mono.wav"
-var mono_2 = "sounds/animal/attacks_mono.wav"
+var mono_1 = "sounds/animal/clicks_mono.wav";
+var mono_2 = "sounds/animal/attacks_mono.wav";
 //var mono_3 = "sounds/attacks_mono.wav"
 
 var irUrl_0 = "node_modules/web-audio-ambisonic/examples/IRs/HOA4_filters_virtual.wav";
@@ -25,8 +25,8 @@ var irUrl_2 = "node_modules/web-audio-ambisonic/examples/IRs/room-medium-1-furni
 
 var maxOrder = 3;
 var orderOut = 3;
-var soundBuffer, soundBuffer2, soundBuffer3, monoBuffer, monoBuffer2, monoBuffer3, sound;
-var alpha2, alpha3;
+var soundBuffer, soundBuffer2, monoBuffer, monoBuffer2, sound, sound2, mono, mono2;
+
 
 // define HOA order limiter (to show the effect of order)
 var limiter = new webAudioAmbisonic.orderLimiter(context, maxOrder, orderOut);
