@@ -11,7 +11,7 @@ context.onstatechange = function() {
     if (context.state === "suspended") { context.resume(); }
 }
 
-var sound_1 = "sounds/animal/Birds_and_Moves_ACN_SN3D.wav";
+var sound_1 = "sounds/attacks.wav"; //animal/Birds_and_Moves_ACN_SN3D.wav";
 var sound_2 = "sounds/animal/Bird_ACN_SN3D.wav";
 //var sound_3 = "sounds/attacks.wav";
 
