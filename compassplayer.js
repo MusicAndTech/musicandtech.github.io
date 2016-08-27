@@ -97,7 +97,7 @@ var assignSample2SoundBuffer = function(decodedBuffer) {
     document.getElementById('play').disabled = false;
 }
 var assignSample2SoundBuffer2 = function(decodedBuffer) { monoBuffer2 = decodedBuffer;}
-var assignSample2SoundBuffer3 = function(decodedBuffer) { monoBuffer3 = decodedBuffer;}
+//var assignSample2SoundBuffer3 = function(decodedBuffer) { monoBuffer3 = decodedBuffer;}
 
 // function to load samples
 function loadSample(url, doAfterLoading) {
